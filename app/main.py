@@ -29,9 +29,11 @@ def start():
     # TODO: Do things with data
 
     return {
-        'color': '#00FF00',
+        'color': '#0011ff',
         'taunt': '{} ({}x{})'.format(game_id, board_width, board_height),
-        'head_url': head_url
+        'head_url': '',
+        'head_type': 'sand-worm',
+        'tail_type' : 'fat-rattle'
     }
 
 
@@ -41,6 +43,8 @@ def move():
 
     # TODO: Do things with data
     
+    
+
     directions = ['up', 'down', 'left', 'right']
     direction = random.choice(directions)
     print direction
