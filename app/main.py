@@ -51,7 +51,10 @@ def move(self):
     mySnake = data['you']
     mySnakeLen = mySnake['length']   
 
-    
+    mySnakeHeadx = mySnake['body']['data'][0]['x']
+    mySnakeHeady = mySnake['body']['data'][0]['y']
+    mySnakeTailx = mySnake['body']['data'][mySnakeLen-1]['x']
+    mySnakeTaily = mySnake['body']['data'][mySnakeLen-1]['y']
 
     if self.last_move == null:
         mySnakeHeadx = mySnake['body']['data'][0]['x']
@@ -73,7 +76,7 @@ def move(self):
             pass 
     }
 
-    if 
+    if my
 
     directions = ['up', 'down', 'left', 'right']
     direction = random.choice(directions)
