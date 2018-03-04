@@ -23,8 +23,8 @@ last_move = null
 def start(self):
     data = bottle.request.json
     self.game_id = data.get('game_id')
-    self.board_width = data.get('width')
-    self.board_height = data.get('height')
+    self.board_width = data.get('width') - 1
+    self.board_height = data.get('height') - 1
 
     head_url = '%s://%s/static/head.png' % (
         bottle.request.urlparts.scheme,
@@ -57,11 +57,6 @@ def move(self):
     mySnakeTaily = mySnake['body']['data'][mySnakeLen-1]['y']
 
     if self.last_move == null:
-        mySnakeHeadx = mySnake['body']['data'][0]['x']
-        mySnakeHeady = mySnake['body']['data'][0]['y']
-        mySnakeTailx = mySnake['body']['data'][mySnakeLen-1]['x']
-        mySnakeTaily = mySnake['body']['data'][mySnakeLen-1]['y']
-
         if (mySnakeHeadx == mySnakeTailx):
             if mySnakeHeady > mySnakeTaily:
                 self.last_move = 3
@@ -76,13 +71,33 @@ def move(self):
             pass 
     }
 
-    if my
+    wall0 = mySnakeHeadx
+    wall1 = self.board_width - mySnakeHeady
+    wall2 = self.board_height - mySnakeHeadx
+    wall3 = mySnakeHeady
+
+    if self.last_move == 0:
+        if mySnakeHeadx > 0:
+            dir = 0
+    elif self.last_move == 1:
+        if mySnakeHeady < self.board_width:
+            dir = 1
+    elif self.last_move == 2:
+        if mySnakeHeadx < self.board_height:
+            dir = 2
+    elif self.last_move == 3:
+        if mySnakeHeady > 0:
+            dir = 3
+    else:
+        dir = 0
+    
+
 
     directions = ['up', 'down', 'left', 'right']
-    direction = random.choice(directions)
+ #   direction = random.choice(directions)
     print direction
     return {
-        'move': direction,
+        'move': directions[dir],
         'taunt': 'tried to think outside the box .. kept on running into walls!'
     }
 
