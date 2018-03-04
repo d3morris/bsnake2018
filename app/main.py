@@ -2,7 +2,10 @@ import bottle
 import os
 import random
 
-
+game_id = 0
+board_width = 0
+board_height = 0
+last_move = -1
 
 @bottle.route('/')
 def static():
@@ -13,11 +16,6 @@ def static():
 def static(path):
     return bottle.static_file(path, root='static/')
 
-
-game_id = 0
-board_width = 0
-board_height = 0
-last_move = null
 
 @bottle.post('/start')
 def start(self):
@@ -55,8 +53,9 @@ def move(self):
     mySnakeHeady = mySnake['body']['data'][0]['y']
     mySnakeTailx = mySnake['body']['data'][mySnakeLen-1]['x']
     mySnakeTaily = mySnake['body']['data'][mySnakeLen-1]['y']
+    totSnakes = len(data['snakes']['data'])
 
-    if self.last_move == null:
+    if self.last_move == -1:
         if (mySnakeHeadx == mySnakeTailx):
             if mySnakeHeady > mySnakeTaily:
                 self.last_move = 3
@@ -68,13 +67,11 @@ def move(self):
                 self.last_move = 2
         else:
                 self.last_move = 0
-            pass 
-    }
 
-    wall0 = mySnakeHeadx
-    wall1 = self.board_width - mySnakeHeady
-    wall2 = self.board_height - mySnakeHeadx
-    wall3 = mySnakeHeady
+#    wall0 = mySnakeHeadx
+#    wall1 = self.board_width - mySnakeHeady
+#    wall2 = self.board_height - mySnakeHeadx
+#    wall3 = mySnakeHeady
 
     if self.last_move == 0:
         if mySnakeHeadx > 0:
