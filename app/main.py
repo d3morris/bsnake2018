@@ -79,15 +79,38 @@ def move(self):
     if self.last_move == 0:
         if mySnakeHeadx > 0:
             dir = 0
+        else:
+            if mySnakeHeady < self.board_width/2:
+                dir = 1
+            else:
+                dir = 3
+
     elif self.last_move == 1:
         if mySnakeHeady < self.board_width:
             dir = 1
+        else:
+            if mySnakeHeadx < self.board_height/2:
+                dir = 2
+            else:
+                dir = 0
+
     elif self.last_move == 2:
         if mySnakeHeadx < self.board_height:
             dir = 2
+        else:
+            if mySnakeHeady < self.board_width/2:
+                dir =3
+            else:
+                dir = 1
+
     elif self.last_move == 3:
         if mySnakeHeady > 0:
             dir = 3
+        else:
+            if mySnakeHeadx < self.board_height/2:
+                dir = 0
+            else:
+                dir = 2
     else:
         dir = 0
     
