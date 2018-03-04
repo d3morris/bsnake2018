@@ -14,12 +14,17 @@ def static(path):
     return bottle.static_file(path, root='static/')
 
 
+game_id = 0
+board_width = 0
+board_height = 0
+last_move = null
+
 @bottle.post('/start')
-def start():
+def start(self):
     data = bottle.request.json
-    game_id = data.get('game_id')
-    board_width = data.get('width')
-    board_height = data.get('height')
+    self.game_id = data.get('game_id')
+    self.board_width = data.get('width')
+    self.board_height = data.get('height')
 
     head_url = '%s://%s/static/head.png' % (
         bottle.request.urlparts.scheme,
@@ -38,19 +43,44 @@ def start():
 
 
 @bottle.post('/move')
-def move():
+def move(self):
     data = bottle.request.json
 
     # TODO: Do things with data
     
+    mySnake = data['you']
+    mySnakeLen = mySnake['length']   
+
     
+
+    if self.last_move == null:
+        mySnakeHeadx = mySnake['body']['data'][0]['x']
+        mySnakeHeady = mySnake['body']['data'][0]['y']
+        mySnakeTailx = mySnake['body']['data'][mySnakeLen-1]['x']
+        mySnakeTaily = mySnake['body']['data'][mySnakeLen-1]['y']
+
+        if (mySnakeHeadx == mySnakeTailx):
+            if mySnakeHeady > mySnakeTaily:
+                self.last_move = 3
+            else:
+                self.last_move = 1
+                    
+        elif (mySnakeHeady == mySnakeTaily):
+            if mySnakeHeadx > mySnakeTailx:
+                self.last_move = 2
+        else:
+                self.last_move = 0
+            pass 
+    }
+
+    if 
 
     directions = ['up', 'down', 'left', 'right']
     direction = random.choice(directions)
     print direction
     return {
         'move': direction,
-        'taunt': 'battlesnake-python!'
+        'taunt': 'tried to think outside the box .. kept on running into walls!'
     }
 
 
